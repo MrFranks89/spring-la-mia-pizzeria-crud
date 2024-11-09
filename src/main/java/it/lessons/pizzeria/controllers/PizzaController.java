@@ -28,7 +28,7 @@ public class PizzaController {
 		
 		if(keyword !=null && !keyword.isBlank()) {
 			allPizze = pizzaRepo.findByNomeContaining(keyword);
-			model.addAttribute("keywor", keyword);
+			model.addAttribute("keyword", keyword);
 		} else {
 			allPizze = pizzaRepo.findAll();
 		}

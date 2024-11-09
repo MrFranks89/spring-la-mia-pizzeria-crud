@@ -15,7 +15,7 @@
 	<div class="container">
 		<form th:action="@{/pizze}" method="get">
 			<div class="input-group">
-				<input name="keyword" value="${keyword}" class="form-control" type="search" placeholder="Search"
+				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search"
 					aria-label="Search">
 
 				<button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
