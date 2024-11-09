@@ -1,28 +1,33 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head></head>
+
 <body>
-	<nav th:fragment="navbar(pagename)"
-		class="navbar navbar-expand-lg navbar-light bg-light">
+	<nav th:fragment="navbar(pagename)" class="navbar navbar-expand-lg navbar-light bg-light">
 
 		<div class="container-fluid">
-			<a class="navbar-brand" th:href="@{/pizze/}"> Gestione applicazione </a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<a class="navbar-brand" th:href="@{/}"> Pizzeria Grande Piramide d'Egitto</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item">
-					<a class="nav-link active" aria-current="page" th:href="@{/pizze/list}"
-						th:classappend="${pagename == 'Pizze'} ? link-primary : not-active">
+						<a class="nav-link active" aria-current="page" th:href="@{/pizze}"
+							th:classappend="${pagename == 'pizze'} ? active : not-active">
 							Pizze</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" th:href="@{/pizze}"
+							th:classappend="${pagename == 'pizze'} ? active : not-active">
+							Fritti</a>
 					</li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 </body>
+
 </html>

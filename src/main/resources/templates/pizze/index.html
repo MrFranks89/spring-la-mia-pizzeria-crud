@@ -8,9 +8,11 @@
 
 <body>
 
+	<nav th:replace="~{navbar :: navbar('pizze')}">	</nav>
+	
 	<div class="container">
 		<h1>Pizze</h1>
-	</div>
+
 
 	<div class="container">
 		<form th:action="@{/pizze}" method="get">
@@ -61,7 +63,7 @@
 	<div class="container">
 		<div class="content alert alert-primary" role="alert" th:if="${pizze.isEmpty()}">Non ci sono pizze in forno!
 		</div>
-
+	</div>
 	</div>
 	<div th:replace="~{fragments :: scripts}"></div>
 </body>
