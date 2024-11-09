@@ -12,6 +12,19 @@
 		<h1>Pizze</h1>
 	</div>
 
+	<div class="container">
+		<form th:action="@{/pizze}" method="get">
+			<div class="input-group">
+				<input name="keyword" value="${keyword}" class="form-control" type="search" placeholder="Search"
+					aria-label="Search">
+
+				<button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+			</div>
+
+		</form>
+
+
+	</div>
 
 	<div class="container" th:if="${!pizze.isEmpty()}">
 		<table class="content table table-striped">
