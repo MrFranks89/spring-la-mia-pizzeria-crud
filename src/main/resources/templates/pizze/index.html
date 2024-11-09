@@ -21,6 +21,7 @@
 					<th>Descrizione</th>
 					<th>Foto</th>
 					<th>Prezzo</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,6 +33,12 @@
 							style="max-width: 100px; max-height: 100px;">
 					</td>
 					<td th:text="${pizza.prezzo}"></td>
+					<td>
+						<a class="btn btn-primary" th:href="@{/pizze/show/{id}(id=${pizza.id})}">
+							<i class="fas fa-pizza-slice"></i>
+						</a>
+
+					</td>
 				</tr>
 			</tbody>
 		</table>

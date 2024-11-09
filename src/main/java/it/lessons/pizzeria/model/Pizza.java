@@ -7,19 +7,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-	@Table(name = "pizze")
+@Table(name = "pizze")
 public class Pizza {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String nome;
-	
+
 	private String descrizione;
-	
+
 	private String foto;
-	
+
 	private Integer prezzo;
 
 	public Long getId() {
