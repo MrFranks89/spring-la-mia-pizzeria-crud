@@ -26,11 +26,18 @@ public class PizzaController {
 		
 		List<Pizza> allPizze = pizzaRepo.findAll();
 		
+		
 		if(keyword !=null && !keyword.isBlank()) {
 			allPizze = pizzaRepo.findByNomeContaining(keyword);
 			model.addAttribute("keyword", keyword);
 		} else {
 			allPizze = pizzaRepo.findAll();
+		}
+		
+		if(keyword == null || keyword.isBlank() || keyword.equals("null")) {
+			model.addAttribute("pizzaUrl","/pizze");
+		} else {
+			model.addAttribute("pizzaUrl","/pizze?keyword=" + keyword);
 		}
 		
 
@@ -47,6 +54,7 @@ public class PizzaController {
 		if (pizzaOptional.isPresent()) {
 			model.addAttribute("pizza", pizzaOptional.get()); // tira fuori il contenuto dal contenitore
 		}
+		
 
 		return "/pizze/show";
 	}
