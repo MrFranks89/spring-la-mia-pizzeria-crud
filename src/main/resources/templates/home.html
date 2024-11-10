@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="~{fragments :: head}"></div>
+    <title>Homepage</title>
+</head>
+
+<body>
+    <nav th:replace="~{navbar :: navbar('home')}"></nav>
+    
+    <div class="container">
+        <h1>Benvenuto alla Pizzeria Grande Piramide d'Egitto!</h1>
+
+        <p>Esplora il nostro menù di pizze, fritti e tanto altro!</p>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <a href="/pizze" class="btn btn-primary btn-lg btn-block">Scopri le Pizze</a>
+            </div>
+            <div class="col-md-4">
+                <a href="/fritti" class="btn btn-primary btn-lg btn-block">Scopri i Fritti</a>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments :: scripts}"></div>
+</body>
+</html>
