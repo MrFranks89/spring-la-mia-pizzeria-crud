@@ -10,12 +10,24 @@
 
 	<nav th:replace="~{navbar :: navbar('pizze')}">	</nav>
 	
-	<div class="container">
-		<h1>Pizze</h1>
+	<div class="container-lg">
+		<h1 class="d-flex justify-content-center mt-3">Pizze</h1>
+		<hr>
 
+		<div th:if="${successMessage != null}">
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+				<span th:text="${successMessage}"></span>
+			</div>
+		</div>
+		
+			
+	
 
-	<div class="container">
-		<form th:action="@{/pizze}" method="get">
+	<div class="container row g-3">
+		<a class="btn btn-success col-md-2" type="submit" th:href="@{/pizze/create}">
+			<i class="fas fa-plus"></i>Aggiungi la tua pizza </a>
+	
+		<form th:action="@{/pizze}" method="get" class="col-md-10">
 			<div class="input-group">
 				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search"
 					aria-label="Search">
@@ -33,7 +45,7 @@
 			<thead>
 				<tr>
 					<th>Nome</th>
-					<th>Descrizione</th>
+					<th>Ingredienti</th>
 					<th>Foto</th>
 					<th>Prezzo</th>
 					<th></th>

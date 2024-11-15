@@ -10,16 +10,21 @@
 <nav th:replace="~{navbar :: navbar('pizze')}">	</nav>
 	<div class=" container d-flex align-items-start flex-column bd-highlight mb-3" style="height: 50vh;">
 		<div class="container mb-auto" th:object="${pizza}">
-			<h1 th:text="*{nome}"></h1>
+			<h1 th:text="*{nome}" class="d-flex justify-content-center mt-3"></h1>
 			<hr />
-			<div class="row">
-				<div class="col-8">
+			<div class="row align-items-center justify-content-center">
+				<div class="col-6">
 					<dl>
 						<dt>Ingredienti</dt>
 						<dd th:text="${pizza.descrizione}"></dd>
 						<dt>Prezzo</dt>
 						<dd th:text="${pizza.prezzo}"></dd>
 					</dl>
+				</div>
+				<div class="col-6">
+					<div th:if="${pizza.foto}">
+					    <img th:src="@{${pizza.foto}}" alt="Foto della pizza" class="img-fluid">
+					</div>
 				</div>
 
 			</div>
