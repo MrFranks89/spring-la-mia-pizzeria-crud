@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,4 +88,55 @@ public class PizzaController {
 		 
 		 return "redirect:/pizze";
 	 }
+	 
+	 @GetMapping("/edit/{id}")
+	 public String edit(@PathVariable Long id,  Model model) {
+		 
+		 model.addAttribute("pizza", pizzaRepo.findById(id).get());
+		 return "pizze/edit";
+	 }
+	 
+	 @PostMapping("/edit/{id}")
+	 public String update(@PathVariable Long id, 
+			 @Valid @ModelAttribute("pizza") Pizza formPizza,
+			 BindingResult bindingResult,
+			 Model model, RedirectAttributes redirectAttributes) {
+		 
+		 if(bindingResult.hasErrors())  {
+			 return "pizze/edit";
+			 
+		 }
+		 
+		 Pizza pizza = pizzaRepo.findById(id).orElseThrow();
+		 new RuntimeException("Pizza non trovata");
+		 
+		 if(!formPizza.getNome().equals(pizza.getNome())) {
+			 bindingResult.addError(new ObjectError("nome", "Il nome non può essere cambiato"));
+			 return "pizze/edit";
+		 }
+		 
+		 if (!formPizza.getDescrizione().equals(pizza.getDescrizione())) {
+		        bindingResult.rejectValue("descrizione", "error.descrizione", "La descrizione non può essere cambiata");
+		    }
+
+		    if (bindingResult.hasErrors()) {
+		        return "pizze/edit";
+		    }
+		 
+		 pizzaRepo.save(formPizza);
+		 
+		 redirectAttributes.addFlashAttribute("successMessage", "Pizza Modificata!");
+		 
+		 return "redirect:/pizze";
+	 }
+	 
+	 @PostMapping("/delete/{id}")
+	 public String delete(@PathVariable("id") Long id) {
+
+		 pizzaRepo.deleteById(id);
+	 	
+	 	return "redirect:/pizze";
+	 }
+	 
+	 
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title th:text="${pizza.nome}"></title>
+</head>
+
+<body>
+	<nav th:replace="~{navbar :: navbar('pizze')}"> </nav>
+	<div class=" container d-flex align-items-start flex-column bd-highlight mb-3" style="height: 50vh;">
+		<div class="container mb-auto" th:object="${pizza}">
+			<h1 th:text="*{nome}" class="d-flex justify-content-center mt-3"></h1>
+			<hr />
+			<div class="row align-items-center justify-content-center">
+				<div class="col-6">
+					<dl>
+						<dt>Ingredienti</dt>
+						<dd th:text="${pizza.descrizione}"></dd>
+						<dt>Prezzo</dt>
+						<dd th:text="${pizza.prezzo}"></dd>
+					</dl>
+				</div>
+				<div class="col-6">
+					<div th:if="${pizza.foto}">
+						<img th:src="@{${pizza.foto}}" alt="Foto della pizza" class="img-fluid">
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="container row g-3 mb-2">
+			<a class="btn btn-success col-md-2" type="submit" th:href="@{|/pizze/edit/${pizza.id}|}">
+				<i class="fas fa-plus">Modifica la pizza </i></a>
+		</div>
+		<div class="container row g-3 mb-2">
+		<form id="delete-pizza " action="#" th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}" method:post>
+			<button class="btn btn-danger" type="submit" id="submitButton"
+				onclick="return confirm('Vuoi eliminare questa pizza?')">
+				<i class="fas fa-trash">Elimina questa pizza</i>
+			</button>
+		</form>
+		</div>
+		<div class="container row g-3">
+			<a class="btn btn-primary col-md-2" th:href="@{/pizze}" role="button">Back to Pizze!</a>
+		</div>
+		<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>

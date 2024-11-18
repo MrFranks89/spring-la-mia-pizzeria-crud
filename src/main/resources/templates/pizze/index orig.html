@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="~{fragments :: head}"></div>
+	<title>Pizze</title>
+	
+	<style>
+	        /* Stile generale */
+	        body {
+	            font-family: 'Roboto', sans-serif;
+	            background-color: #f9f9f9;
+	        }
+
+	        h1 {
+	            color: #343a40;
+	        }
+
+	        /* Pulsanti */
+	        .btn {
+	            transition: all 0.3s ease;
+	        }
+
+	        .btn-success:hover {
+	            background-color: #28a745;
+	            border-color: #28a745;
+	            color: white;
+	        }
+
+	        .btn-primary:hover {
+	            background-color: #0056b3;
+	            border-color: #0056b3;
+	        }
+
+	        .btn-danger:hover {
+	            background-color: #c82333;
+	            border-color: #c82333;
+	        }
+
+	        /* Immagini */
+	        img {
+	            border-radius: 8px;
+	            border: 1px solid #ddd;
+	            padding: 5px;
+	        }
+
+	        /* Tabella */
+	        .table {
+	            margin-top: 20px;
+	        }
+
+	        .table thead {
+	            background-color: #343a40;
+	            color: white;
+	        }
+
+	        .table tbody tr:hover {
+	            background-color: #f1f1f1;
+	            transition: background-color 0.3s ease;
+	        }
+
+	        /* Messaggio di successo */
+	        #success-message {
+	            text-align: center;
+	        }
+
+	        /* Mobile responsive */
+	        @media (max-width: 768px) {
+	            .btn {
+	                width: 100%;
+	                margin-bottom: 10px;
+	            }
+
+	            .input-group {
+	                flex-direction: column;
+	            }
+
+	            .input-group input {
+	                margin-bottom: 10px;
+	            }
+	        }
+	    </style>
+</head>
+
+<body>
+
+	<nav th:replace="~{navbar :: navbar('pizze')}"> </nav>
+
+	<div class="container-lg">
+		<h1 class="d-flex justify-content-center mt-3">Pizze</h1>
+		<hr>
+
+		<div id="success-message" th:if="${successMessage}" class="alert alert-success" role="alert"
+			th:text="${successMessage}"></div>
+
+
+
+
+		<div class="container row g-3">
+			<a class="btn btn-success col-md-2 d-flex justify-content-center align-items-center" type="submit" th:href="@{/pizze/create}">
+				<i class="fas fa-plus"></i>Aggiungi la tua pizza</a>
+
+			<form th:action="@{/pizze}" method="get" class="col-md-8">
+				<div class="input-group">
+					<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search"
+						aria-label="Search">
+
+					<button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+				</div>
+
+			</form>
+
+
+		</div>
+
+		<div class="container justify-content-center" th:if="${!pizze.isEmpty()}">
+			<table class="content table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>Ingredienti</th>
+						<th>Foto</th>
+						<th>Prezzo</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="pizza : ${pizze}">
+						<td th:text="${pizza.nome}"></td>
+						<td th:text="${pizza.descrizione}"></td>
+						<td>
+							<img th:src="${pizza.foto}" alt="Foto di [[${pizza.nome}]]"
+								style="max-width: 100px; max-height: 100px;">
+						</td>
+						<td th:text="${pizza.prezzo}"></td>
+						<td>
+							<a class="btn btn-primary" th:href="@{/pizze/show/{id}(id=${pizza.id})}">
+								<i class="fas fa-pizza-slice"></i>
+							</a>
+							<a class="btn btn-success" th:href="@{|/pizze/edit/${pizza.id}|}">
+								<i class="fas fa-edit"></i>
+							</a>
+							<form id="delete-pizza" action="#" th:action="@{'/pizze/delete/{id}'(id=${pizza.id})}"
+								method:post>
+								<button class="btn btn-danger" type="submit" id="submitButton"
+									onclick="return confirm('Vuoi eliminare questa pizza?')">
+									<i class="fas fa-trash"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</div>
+
+		<div class="container">
+			<div class="content alert alert-primary" role="alert" th:if="${pizze.isEmpty()}">Non ci sono pizze in forno!
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	    document.addEventListener('DOMContentLoaded', function() {
+	        var successMessage = document.getElementById('success-message');
+	        if (successMessage) {
+	            setTimeout(function() {
+	                successMessage.style.transition = 'opacity 1s';
+	                successMessage.style.opacity = '0';
+	                setTimeout(function() {
+	                    successMessage.remove();
+	                }, 1000);
+	            }, 2000);
+	        }
+	    });
+	</script>
+	
+	<div th:replace="~{fragments :: scripts}"></div>
+</body>
+
+</html>
